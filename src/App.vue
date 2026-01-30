@@ -1,9 +1,15 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link> |
+    <router-link to="/consultar-todos">Consultar Todos</router-link> |
+    <router-link to="/consultar-id">Consultar por ID</router-link> |
+    <router-link to="/guardar">Guardar</router-link> |
+    <router-link to="/actualizar">Actualizar</router-link> |
+    <router-link to="/actualizar-parcial">Actualizar Parcial</router-link> |
+    <router-link to="/eliminar">Eliminar</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
@@ -17,7 +23,7 @@
 
 nav {
   padding: 30px;
-} 
+}
 
 nav a {
   font-weight: bold;
