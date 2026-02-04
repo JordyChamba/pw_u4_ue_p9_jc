@@ -6,33 +6,41 @@ const API_URL = "http://localhost:8081/matricula/api/v1.0/estudiantes";
 // MÉTODOS INTERNOS
 // ======================
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
+  }
+  return {};
+};
+
 const consultarTodos = async () => {
-  const response = await axios.get(API_URL);
+  const response = await axios.get(API_URL, { headers: getAuthHeaders() });
   return response.data;
 };
 
 const consultarPorID = async (id) => {
-  const response = await axios.get(`${API_URL}/${id}`);
+  const response = await axios.get(`${API_URL}/${id}`, { headers: getAuthHeaders() });
   return response.data;
 };
 
 const guardar = async (body) => {
-  const response = await axios.post(API_URL, body);
+  const response = await axios.post(API_URL, body, { headers: getAuthHeaders() });
   return response.data;
 };
 
 const actualizar = async (id, body) => {
-  const response = await axios.put(`${API_URL}/${id}`, body);
+  const response = await axios.put(`${API_URL}/${id}`, body, { headers: getAuthHeaders() });
   return response.data;
 };
 
 const actualizarParcial = async (id, body) => {
-  const response = await axios.patch(`${API_URL}/${id}`, body);
+  const response = await axios.patch(`${API_URL}/${id}`, body, { headers: getAuthHeaders() });
   return response.data;
 };
 
 const eliminar = async (id) => {
-  const response = await axios.delete(`${API_URL}/${id}`);
+  const response = await axios.delete(`${API_URL}/${id}`, { headers: getAuthHeaders() });
   return response.data;
 };
 
