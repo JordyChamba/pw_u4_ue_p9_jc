@@ -1,17 +1,17 @@
-<template>
-  <nav v-if="!isLoginPage">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/consultar-todos">Consultar Todos</router-link> |
-    <router-link to="/consultar-id">Consultar por ID</router-link> |
-    <router-link to="/guardar">Guardar</router-link> |
-    <router-link to="/actualizar">Actualizar</router-link> |
-    <router-link to="/actualizar-parcial">Actualizar Parcial</router-link> |
-    <router-link to="/eliminar">Eliminar</router-link> |
-    <a href="#" @click.prevent="logout" class="logout-btn">Cerrar Sesión</a>
-  </nav>
-  <router-view />
-</template>
+  <template>
+    <nav v-if="!isLoginPage">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/consultar-todos">Consultar Todos</router-link> |
+      <router-link to="/consultar-id">Consultar por ID</router-link> |
+      <router-link to="/guardar">Guardar</router-link> |
+      <router-link to="/actualizar">Actualizar</router-link> |
+      <router-link to="/actualizar-parcial">Actualizar Parcial</router-link> |
+      <router-link to="/eliminar">Eliminar</router-link> |
+      <a href="#" @click.prevent="logout" class="logout-btn">Cerrar Sesión</a>
+    </nav>
+    <router-view />
+  </template>
 
 <script>
 export default {
@@ -22,8 +22,8 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('role');
       this.$router.push('/login');
     }
   }

@@ -41,10 +41,10 @@ export default {
                 const data = await loginFachada(this.username, this.password);
                 console.log("Login exitoso:", data);
 
-                // Guardar token en localStorage
+                // Guardar token en sessionStorage
                 if (data && data.accessToken) {
-                    localStorage.setItem("token", data.accessToken);
-                    localStorage.setItem("role", data.role);
+                    sessionStorage.setItem("token", data.accessToken);
+                    sessionStorage.setItem("role", data.role);
 
                     // Redirigir al home
                     this.$router.push("/");

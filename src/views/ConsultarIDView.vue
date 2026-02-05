@@ -3,11 +3,7 @@
     <h2>Consultar Estudiante por ID</h2>
 
     <div class="section">
-      <input
-        v-model.number="id"
-        type="number"
-        placeholder="Ingrese el ID del estudiante"
-      />
+      <input v-model.number="id" type="number" placeholder="Ingrese el ID del estudiante" />
       <button @click="consultarPorID" class="btn-primary">Consultar</button>
     </div>
 
@@ -57,7 +53,7 @@
 </template>
 
 <script>
-import { consultarPorIDFachada } from "@/clients/matricula.js";
+import { consultarPorIDFachada, consultarHijosFachada } from "@/clients/matricula.js";
 export default {
   name: "ConsultarIDView",
   data() {
@@ -90,13 +86,7 @@ export default {
 
     async consultarHijos(estudianteId) {
       try {
-        const response = await fetch(
-          `http://localhost:8081/matricula/api/v1.0/estudiantes/${estudianteId}/hijos`,
-        );
-        if (!response.ok) {
-          return [];
-        }
-        const hijos = await response.json();
+        const hijos = await consultarHijosFachada(estudianteId);
         return hijos;
       } catch (error) {
         console.error("Error cargando hijos:", error);

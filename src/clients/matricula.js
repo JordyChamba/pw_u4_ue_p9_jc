@@ -7,7 +7,7 @@ const API_URL = "http://localhost:8081/matricula/api/v1.0/estudiantes";
 // ======================
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   if (token) {
     return { Authorization: `Bearer ${token}` };
   }
@@ -44,6 +44,11 @@ const eliminar = async (id) => {
   return response.data;
 };
 
+const consultarHijos = async (id) => {
+  const response = await axios.get(`${API_URL}/${id}/hijos`, { headers: getAuthHeaders() });
+  return response.data;
+};
+
 // ======================
 // FACHADAS (EXPORTS)
 // ======================
@@ -70,4 +75,8 @@ export const actualizarParcialFachada = async (id, body) => {
 
 export const eliminarFachada = async (id) => {
   return await eliminar(id);
+};
+
+export const consultarHijosFachada = async (id) => {
+  return await consultarHijos(id);
 };

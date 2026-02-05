@@ -7,12 +7,7 @@
     </div>
 
     <h3>Listado de Estudiantes</h3>
-    <table
-      border="1"
-      cellspacing="0"
-      cellpadding="5"
-      v-if="estudiantes.length > 0"
-    >
+    <table border="1" cellspacing="0" cellpadding="5" v-if="estudiantes.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -47,7 +42,7 @@
 </template>
 
 <script>
-import { consultarTodosFachada } from "@/clients/matricula.js";
+import { consultarTodosFachada, consultarHijosFachada } from "@/clients/matricula.js";
 
 export default {
   name: "ConsultarTodosView",
@@ -74,13 +69,7 @@ export default {
 
     async consultarHijos(estudianteId) {
       try {
-        const response = await fetch(
-          `http://localhost:8081/matricula/api/v1.0/estudiantes/${estudianteId}/hijos`,
-        );
-        if (!response.ok) {
-          return [];
-        }
-        const hijos = await response.json();
+        const hijos = await consultarHijosFachada(estudianteId);
         return hijos;
       } catch (error) {
         console.error("Error cargando hijos:", error);
