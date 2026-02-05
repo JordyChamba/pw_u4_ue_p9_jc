@@ -1,7 +1,11 @@
 <template>
     <div class="login-container">
         <div class="login-card">
-            <h2>Iniciar Sesión</h2>
+            <h2>Autenticando...</h2>
+            <p>Redirigiendo al sistema...</p>
+
+            <!-- FORMULARIO DE LOGIN COMENTADO -->
+            <!-- 
             <form @submit.prevent="handleLogin">
                 <div class="form-group">
                     <label for="username">Usuario:</label>
@@ -17,12 +21,13 @@
                 </button>
                 <p v-if="error" class="error-message">{{ error }}</p>
             </form>
+            -->
         </div>
     </div>
 </template>
 
 <script>
-import { loginFachada } from "@/clients/AuthClient";
+// import { loginFachada } from "@/clients/AuthClient";
 
 export default {
     data() {
@@ -33,32 +38,32 @@ export default {
             loading: false,
         };
     },
+    mounted() {
+        // Auto-login al cargar la página
+        this.handleLogin();
+    },
     methods: {
         async handleLogin() {
             this.loading = true;
             this.error = null;
+
+            // Simular login sin llamar al backend
+            // Solo para probar el guardián de rutas
             try {
-                const data = await loginFachada(this.username, this.password);
-                console.log("Login exitoso:", data);
+                console.log("Login automático - guardián activo");
 
-                // Guardar token en sessionStorage
-                if (data && data.accessToken) {
-                    sessionStorage.setItem("token", data.accessToken);
-                    sessionStorage.setItem("role", data.role);
+                // Guardar token simulado en sessionStorage
+                sessionStorage.setItem("token", "mock-token-123");
+                sessionStorage.setItem("role", "user");
 
-                    // Redirigir al home
+                // Redirigir al home
+                setTimeout(() => {
                     this.$router.push("/");
-                } else {
-                    this.error = "No se recibió un token válido.";
-                }
+                }, 500);
 
             } catch (err) {
-                console.error("Error de login:", err);
-                if (err.response && err.response.status === 401) {
-                    this.error = "Credenciales incorrectas.";
-                } else {
-                    this.error = "Error al conectar con el servidor de autenticación.";
-                }
+                console.error("Error:", err);
+                this.error = "Error inesperado.";
             } finally {
                 this.loading = false;
             }
