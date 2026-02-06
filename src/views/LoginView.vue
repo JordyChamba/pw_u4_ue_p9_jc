@@ -1,148 +1,56 @@
 <template>
     <div class="login-container">
-        <div class="login-card">
-            <h2>Autenticando...</h2>
-            <p>Redirigiendo al sistema...</p>
-
-            <!-- FORMULARIO DE LOGIN COMENTADO -->
-            <!-- 
-            <form @submit.prevent="handleLogin">
-                <div class="form-group">
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" v-model="username" placeholder="Ingrese su usuario" required />
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" v-model="password" placeholder="Ingrese su contraseña"
-                        required />
-                </div>
-                <button type="submit" :disabled="loading">
-                    {{ loading ? "Ingresando..." : "Ingresar" }}
-                </button>
-                <p v-if="error" class="error-message">{{ error }}</p>
-            </form>
-            -->
-        </div>
+        <LoginComponent />
     </div>
 </template>
 
 <script>
-// import { loginFachada } from "@/clients/AuthClient";
+import LoginComponent from "@/components/LoginComponent.vue";
 
 export default {
-    data() {
-        return {
-            username: "",
-            password: "",
-            error: null,
-            loading: false,
-        };
-    },
-    mounted() {
-        // Auto-login al cargar la página
-        this.handleLogin();
-    },
-    methods: {
-        async handleLogin() {
-            this.loading = true;
-            this.error = null;
-
-            // Simular login sin llamar al backend
-            // Solo para probar el guardián de rutas
-            try {
-                console.log("Login automático - guardián activo");
-
-                // Guardar token simulado en sessionStorage
-                sessionStorage.setItem("token", "mock-token-123");
-                sessionStorage.setItem("role", "user");
-
-                // Redirigir al home
-                setTimeout(() => {
-                    this.$router.push("/");
-                }, 500);
-
-            } catch (err) {
-                console.error("Error:", err);
-                this.error = "Error inesperado.";
-            } finally {
-                this.loading = false;
-            }
-        },
+    components: {
+        LoginComponent,
     },
 };
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
 }
 
-.login-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+/* Background patterns/shapes */
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(233, 69, 96, 0.2) 0%, rgba(233, 69, 96, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
-h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #666;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    /* Ensure padding doesn't affect width */
-}
-
-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #42b983;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 1rem;
-}
-
-button:hover {
-    background-color: #3aa876;
-}
-
-button:disabled {
-    background-color: #a8d5c2;
-    cursor: not-allowed;
-}
-
-.error-message {
-    color: #e74c3c;
-    margin-top: 1rem;
-    font-size: 0.9rem;
+.login-container::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(216, 218, 223, 0.89) 0%, rgba(222, 230, 226, 0.801) 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 </style>

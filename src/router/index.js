@@ -23,7 +23,11 @@ const routes = [
   {
     path: '/consultar-todos',
     name: 'consultarTodos',
-    component: () => import(/* webpackChunkName: "consultarTodos" */ '../views/ConsultarTodosView.vue')
+    component: () => import(/* webpackChunkName: "consultarTodos" */ '../views/ConsultarTodosView.vue'),
+    meta: {
+      requiresAuth: true,
+      esPublica: false
+    }
   },
   {
     path: '/consultar-id',
@@ -89,10 +93,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = sessionStorage.getItem('token');
 
   if (authRequired && !loggedIn) {
-    console.log("Ruta protegida, requiere autenticacion - redirigiendo al login");
     next('/login');
   } else {
-    console.log("Acceso permitido");
     next();
   }
 });
